@@ -7,7 +7,13 @@ import (
 	"os"
 )
 
-type Weather struct {}
+type Weather struct {
+	Apikey string
+}
+
+func InitWeather() Weather {
+	return Weather{Apikey: os.Getenv("APIKEY")}
+}
 
 type WeatherParams struct {
 	Main MainParams `json:"main"`
@@ -18,7 +24,7 @@ type MainParams struct {
 
 
 func (w Weather)GetWeather(city string) (float64, error) {
-	resp, err := http.Get("http://openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + os.Getenv("APIKEY"))
+	resp, err := http.Get("http://openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + w.Apikey)
 	if err != nil {
 		return 0.0, err
 	}

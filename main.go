@@ -6,7 +6,8 @@ import (
 )
 
 func main(){
-	h := adapters.InitHandlers(use_cases.GetTime{}, use_cases.Sorter{}, use_cases.Weather{})
+	weather := use_cases.InitWeather()
+	h := adapters.InitHandlers(use_cases.GetTime{}, use_cases.Sorter{}, weather)
 	s := adapters.InitServer(h)
 	s.Start("3333")
 }
